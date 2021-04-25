@@ -3,7 +3,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY *.sln .
-COPY *.csproj .
+COPY DMS/*.csproj DMS/
 RUN dotnet restore
 COPY . .
 
@@ -12,7 +12,7 @@ COPY . .
 
 # publish
 FROM build AS publish
-WORKDIR /src
+WORKDIR /src/DMS
 RUN dotnet publish -c Release -o /src/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS runtime
